@@ -1,0 +1,74 @@
+﻿@model WebApp.Models.TaxDefinition
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>TaxDefinition</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Code" class="control-label"></label>
+                <input asp-for="Code" class="form-control" />
+                <span asp-validation-for="Code" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LegalTaxCode" class="control-label"></label>
+                <input asp-for="LegalTaxCode" class="form-control" />
+                <span asp-validation-for="LegalTaxCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ratio" class="control-label"></label>
+                <input asp-for="Ratio" class="form-control" />
+                <span asp-validation-for="Ratio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomerType" class="control-label"></label>
+                <select asp-for="CustomerType" class="form-control"></select>
+                <span asp-validation-for="CustomerType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TaxCalculationType" class="control-label"></label>
+                <select asp-for="TaxCalculationType" class="form-control"></select>
+                <span asp-validation-for="TaxCalculationType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartingDate" class="control-label"></label>
+                <input asp-for="StartingDate" class="form-control" />
+                <span asp-validation-for="StartingDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndingDate" class="control-label"></label>
+                <input asp-for="EndingDate" class="form-control" />
+                <span asp-validation-for="EndingDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
