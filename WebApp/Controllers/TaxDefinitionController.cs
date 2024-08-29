@@ -100,22 +100,6 @@ namespace WebApp.Controllers
             return _context.TaxDefinitions.Any(e => e.Id == id);
         }
 
-
-        //enum değerlerini frontendde stringe dönüştürmek için
-        public IActionResult GetCustomerTypeDisplayName(int customerTypeId)
-        {
-            var customerType = (CustomerType)customerTypeId;
-            var displayName = customerType.GetDisplayName();
-
-            return Ok(displayName); 
-        }
-
-        public IActionResult GetTaxCalculationTypeDisplayName(int taxCalculationTypeId)
-        {
-            var taxCalculationType = (TaxCalculationType)taxCalculationTypeId;
-            var displayName = taxCalculationType.GetDisplayName();
-
-            return Ok(displayName);
-        }
+        
     }
 }

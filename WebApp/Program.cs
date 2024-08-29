@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // CORS hatasý verdiði için ayarlarý yapýyoruz 
 builder.Services.AddCors(options =>
 {
+    
     options.AddPolicy("AllowSpecificOrigin",
         builder =>
         {
@@ -16,6 +17,7 @@ builder.Services.AddCors(options =>
                    .AllowAnyMethod()
                    .AllowAnyHeader();
         });
+    
 });
 
 
@@ -42,6 +44,7 @@ var app = builder.Build();
 app.UseCors("AllowSpecificOrigin");
 
 
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -50,7 +53,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();

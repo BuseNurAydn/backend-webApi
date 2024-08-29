@@ -1,29 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 
 namespace WebApp.Models{
     public static class EnumExtensions
     {
-        //VERİTABANINDAKİ DEĞERLERE KARŞILIK, KULLANICIYA METİN GÖSTERMEK İÇİN
-      
-        public static string GetDisplayName(this CustomerType enumValue)
+        //// Enum değerlerini düzgün bir biçimde yazmak için yardımcı method
+        
+        public static string GetDisplayName(this Enum enumValue)
         {
-            var displayAttribute = enumValue.GetType()
-                .GetField(enumValue.ToString())
-                .GetCustomAttributes(typeof(DisplayAttribute), false)
-                .FirstOrDefault() as DisplayAttribute;
-
-            return displayAttribute?.Name ?? enumValue.ToString();
+            return enumValue.GetType()
+                            .GetMember(enumValue.ToString())[0]
+                            .GetCustomAttribute<DisplayAttribute>()?
+                            .Name ?? enumValue.ToString();
         }
-        public static string GetDisplayName(this TaxCalculationType enumValue)
-        {
-            var displayAttribute = enumValue.GetType()
-                .GetField(enumValue.ToString())
-                .GetCustomAttributes(typeof(DisplayAttribute), false)
-                .FirstOrDefault() as DisplayAttribute;
 
-            return displayAttribute?.Name ?? enumValue.ToString();
-        }
     }
     
 }
