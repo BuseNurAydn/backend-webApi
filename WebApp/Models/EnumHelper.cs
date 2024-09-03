@@ -7,6 +7,7 @@ namespace WebApp.Models
     public class EnumHelper
     {
         //Veritabanındaki enum değerlerini frontend'e taşımak için önce bu değerleri JSON formatına dönüştürcez
+        
         public static List<SelectListItem> GetEnumSelectList<T>() where T : Enum
         {
             var enumType = typeof(T);
@@ -22,5 +23,7 @@ namespace WebApp.Models
                             ?.GetName() ?? e.ToString()
                 }).ToList();
         }
+
+       
     }
 }

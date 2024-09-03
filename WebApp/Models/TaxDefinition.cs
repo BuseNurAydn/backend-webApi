@@ -28,6 +28,22 @@ namespace WebApp.Models
         public DateTime StartingDate { get; set; }
         public DateTime EndingDate { get; set; }
 
-        
+        [NotMapped]  //veritabanına kaydedilmeyecek
+        public Status Status { get; set; } = Status.Aktif; //enum olarak / ilk kayıt atarken varsayılan olarak aktif
+
+        [Column("Durum")]
+        public bool StatusBool
+        {
+            get => Status == Status.Aktif;  //aktif ise true
+            set => Status = value ? Status.Aktif : Status.Pasif;   // true ise Aktif, değilse Pasif
+        }
+
+        // Yapıcı metot
+        public TaxDefinition()
+        {
+            Status = Status.Aktif; // İlk kayıt için varsayılan olarak Aktif
+            StatusBool = true; // İlk kayıt için DurumBool da true 
+        }
+
     }
 }

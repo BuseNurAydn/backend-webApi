@@ -9,6 +9,12 @@ namespace WebApp.Controllers
     public class EnumsController : ControllerBase
     {
         //enum değerlerini frontend'e display name ile göndermek için 
+        /* postman çıktı
+        {
+        "value": 1,
+        "text": "Taksit Tutarı"
+        }
+       */
        
 
         [HttpGet("customer-types")]
@@ -33,6 +39,18 @@ namespace WebApp.Controllers
                 .ToList();
 
             return Ok(taxCalculationTypes);
+        }
+
+
+        [HttpGet("status")]
+        public IActionResult GetStatus()
+        {
+            var status = Enum.GetValues(typeof(Status))
+               .Cast<Status>()
+               .Select(tct => new { value = (int)tct, text = tct.GetDisplayName() })
+               .ToList();
+
+            return Ok(status);
         }
     }
 

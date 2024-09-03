@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApp.Models;
 
@@ -11,9 +12,10 @@ using WebApp.Models;
 namespace WebApp.Migrations
 {
     [DbContext(typeof(TaxDefinitionDbContext))]
-    partial class TaxDefinitionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240829230358_mig_10")]
+    partial class mig_10
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,6 +43,10 @@ namespace WebApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(300)");
 
+                    b.Property<bool>("DurumBool")
+                        .HasColumnType("bit")
+                        .HasColumnName("Durum");
+
                     b.Property<DateTime>("EndingDate")
                         .HasColumnType("datetime2");
 
@@ -57,10 +63,6 @@ namespace WebApp.Migrations
 
                     b.Property<DateTime>("StartingDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("StatusBool")
-                        .HasColumnType("bit")
-                        .HasColumnName("Durum");
 
                     b.Property<int>("TaxCalculationType")
                         .HasColumnType("int");

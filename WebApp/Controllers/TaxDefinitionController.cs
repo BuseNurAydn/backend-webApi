@@ -17,6 +17,8 @@ namespace WebApp.Controllers
             _context = context;
         }
 
+     
+
         //Tüm kategorileri listelemek için 
         // GET: api/taxdefinition
         [HttpGet]   //get isteği
@@ -100,6 +102,36 @@ namespace WebApp.Controllers
             return _context.TaxDefinitions.Any(e => e.Id == id);
         }
 
-        
+        //Filtreleme işlemi 
+        [HttpGet("filter")]
+        public async Task<IActionResult> FilterTaxDefinitions([FromQuery] string? firstName, [FromQuery] string? legalTaxCode, [FromQuery] decimal? ratio)
+        {
+            var query = _context.TaxDefinitions.AsQueryable();
+
+            // FirstName'e göre filtreleme
+            if (!string.IsNullOrEmpty(firstName))
+            {
+                query = query.Where(td => td.FirstName.Contains(firstName));
+            }
+
+            // LegalTaxCode'a göre filtreleme
+            if (!string.IsNullOrEmpty(legalTaxCode))
+            {
+                query = query.Where(td => td.LegalTaxCode.Contains(legalTaxCode));
+            }
+
+            // Ratio'ya göre filtreleme
+            if (ratio.HasValue)
+            {
+                query = query.Where(td => td.Ratio == ratio.Value);
+            }
+
+            var filteredTaxDefinitions = await query.ToListAsync();
+            return Ok(filteredTaxDefinitions);
+        }
+
     }
+
+
 }
+

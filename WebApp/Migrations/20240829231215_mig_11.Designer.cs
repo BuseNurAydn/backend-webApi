@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApp.Models;
 
@@ -11,9 +12,10 @@ using WebApp.Models;
 namespace WebApp.Migrations
 {
     [DbContext(typeof(TaxDefinitionDbContext))]
-    partial class TaxDefinitionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240829231215_mig_11")]
+    partial class mig_11
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
