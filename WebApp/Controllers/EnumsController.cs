@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+
+using System.ComponentModel.DataAnnotations;
 using WebApp.Models;
 
 namespace WebApp.Controllers
@@ -16,18 +18,21 @@ namespace WebApp.Controllers
         }
        */
        
-
+        
         [HttpGet("customer-types")]
         public IActionResult GetCustomerTypes()
         {
             var customerTypes = Enum.GetValues(typeof(CustomerType))
                 .Cast<CustomerType>()
-                .Select(tct => new { value = (int)tct, text = tct.GetDisplayName() })
+                .Select(e => new
+                {
+                    Value = (int)e,
+                    Text = e.GetDisplayName()  // EnumExtension metodunu kullanarak display name'i alıyoruz
+                })
                 .ToList();
 
             return Ok(customerTypes);
         }
-
 
 
         [HttpGet("tax-calculation-types")]
@@ -35,7 +40,11 @@ namespace WebApp.Controllers
         {
             var taxCalculationTypes = Enum.GetValues(typeof(TaxCalculationType))
                 .Cast<TaxCalculationType>()
-                .Select(tct => new { value = (int)tct, text = tct.GetDisplayName() })
+                .Select(e => new
+                {
+                    Value = (int)e,
+                    Text = e.GetDisplayName()  // Display name'i alıyoruz
+                })
                 .ToList();
 
             return Ok(taxCalculationTypes);
@@ -47,8 +56,11 @@ namespace WebApp.Controllers
         {
             var status = Enum.GetValues(typeof(Status))
                .Cast<Status>()
-               .Select(tct => new { value = (int)tct, text = tct.GetDisplayName() })
-               .ToList();
+               .Select(e => new {
+                   Value = (int)e,
+                   Text = e.GetDisplayName()  // EnumExtension metodunu kullanarak display name'i alıyoruz
+               })
+              .ToList();
 
             return Ok(status);
         }

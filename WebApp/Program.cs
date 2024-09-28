@@ -20,8 +20,6 @@ builder.Services.AddCors(options =>
     
 });
 
-
-
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -31,7 +29,7 @@ builder.Services.AddDbContext<TaxDefinitionDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
-//ENUM DEÐERLERÝNÝ JSON DA STRÝNG GÖNDERMEK ÝÇÝN LAZIM OLURSA 
+//ENUM DEÐERLERÝNÝ JSON DA STRÝNG OLARAK DÖNMESÝ ÝÇÝN 
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());

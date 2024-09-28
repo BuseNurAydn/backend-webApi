@@ -17,15 +17,40 @@ namespace WebApp.Controllers
             _context = context;
         }
 
-     
+        // listelemek için 
+        // GET: api/taxdefinition
+        [HttpGet]   //get isteği
+        public async Task<ActionResult<IEnumerable<object>>> GetTaxDefinitions()
+        {
+            var taxDefinitions = await _context.TaxDefinitions.ToListAsync();
 
-        //Tüm kategorileri listelemek için 
+            var result = taxDefinitions.Select(tax => new
+            {
+                tax.Id,
+                tax.Code,
+                tax.LegalTaxCode,
+                tax.FirstName,
+                tax.Description,
+                tax.Ratio,
+                CustomerType = tax.CustomerType.GetDisplayName(),  // Enum display name ile dönüştürülüyor
+                TaxCalculationType = tax.TaxCalculationType.GetDisplayName(),  // Enum display name ile dönüştürülüyor
+                tax.StartingDate,
+                tax.EndingDate,
+                tax.Status,
+                tax.StatusBool
+            });
+
+            return Ok(result);
+        }
+        /*
+        //listelemek için 
         // GET: api/taxdefinition
         [HttpGet]   //get isteği
         public async Task<ActionResult<IEnumerable<TaxDefinition>>> GetTaxDefinitions()
         {
             return await _context.TaxDefinitions.ToListAsync();
         }
+        */
 
         //Belirli bir kategoriye ait bilgileri almak için kullanılır
         // GET: api/taxdefinition/2
@@ -41,7 +66,7 @@ namespace WebApp.Controllers
 
             return tax;
         }
-        //Yeni kategori eklemek için
+        //eklemek için
         // POST: api/taxdefinition
         [HttpPost]  //post isteği
         public async Task<ActionResult<TaxDefinition>> PostTaxDefinition(TaxDefinition taxDefinition) //TaxDefinition nesnesi
@@ -52,7 +77,7 @@ namespace WebApp.Controllers
             return CreatedAtAction("GetTaxDefinition", new { id = taxDefinition.Id }, taxDefinition);
         }
 
-        //Kategoriyi güncellemek için 
+        // güncellemek için 
         // PUT: api/taxdefinition/2
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTaxDefinition(int id, TaxDefinition taxDefinition)
@@ -79,7 +104,7 @@ namespace WebApp.Controllers
             return NoContent();
         }
 
-        //Belirli kategoriyi silmek için
+        //silmek için
         // DELETE: api/taxdefinition/2
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTaxDefinition(int id)
@@ -96,13 +121,14 @@ namespace WebApp.Controllers
             return NoContent();
         }
 
-        //Kategori veritabanında var mı yok mu kontrolünü yapmak için
+        //veritabanında var mı yok mu kontrolünü yapmak için
         private bool TaxDefinitionExists(int id)
         {
             return _context.TaxDefinitions.Any(e => e.Id == id);
         }
 
-        //Filtreleme işlemi 
+
+        //Filtreleme işlemi
         [HttpGet("filter")]
         public async Task<IActionResult> FilterTaxDefinitions([FromQuery] string? firstName, [FromQuery] string? legalTaxCode, [FromQuery] decimal? ratio)
         {
@@ -132,6 +158,5 @@ namespace WebApp.Controllers
 
     }
 
-
-}
+    }
 
